@@ -1,4 +1,7 @@
 import createForm from "./form";
+import Controller from "../controller";
+
+import { renderSidebarProjects } from "./sidebar";
 
 export default class View {
     static addGlobalEventListener(type, selector, callback, options) {
@@ -27,20 +30,23 @@ export default class View {
         const child = document.getElementById("add");
         parent.removeChild(child);
     }
+    static renderSidebarProjects() {
+        return renderSidebarProjects();
+    }
 }
 
-View.addGlobalEventListener("click", "a", (e) => {
-    e.preventDefault();
-    console.log(e.target.textContent);
-    return e.target.textContent;
-});
+// View.addGlobalEventListener("click", "a", (e) => {
+//     e.preventDefault();
+//     console.log(e.target.textContent);
+//     return e.target.textContent;
+// });
 
-View.addGlobalEventListener("click", "#add-project", (e) => {
-    e.preventDefault();
-    View.loadForm();
-});
+// View.addGlobalEventListener("click", "#add-project", (e) => {
+//     e.preventDefault();
+//     View.loadForm();
+// });
 
-View.addGlobalEventListener("click", "#close", (e) => {
-    e.preventDefault();
-    View.closeForm();
-});
+// View.addGlobalEventListener("click", "#close", (e) => {
+//     e.preventDefault();
+//     View.closeForm();
+// });
