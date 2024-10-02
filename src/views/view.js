@@ -25,7 +25,7 @@ export default class View {
         home.appendChild(title);
         return home;
     }
-    static loadForm() {
+    static renderForm() {
         const main = document.getElementById("main");
         const formContainer = document.createElement("div");
         formContainer.setAttribute("id", "form-container");
@@ -33,7 +33,7 @@ export default class View {
         formContainer.appendChild(createForm());
         formContainer.classList.add("fade-in");
     }
-    static closeForm() {
+    static removeForm() {
         const parent = document.getElementById("main");
         parent.classList.remove("fade-in");
         const child = document.getElementById("form-container");
@@ -67,5 +67,13 @@ export default class View {
         );
         projectView.appendChild(description);
         return projectView;
+    }
+    static getFormData() {
+        let title = document.getElementById("title").value;
+        console.log("View - get form data");
+        let description = document.getElementById("description").value;
+        let date = document.getElementById("date").value;
+
+        return { title, description, date };
     }
 }

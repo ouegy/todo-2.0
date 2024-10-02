@@ -36,7 +36,18 @@ export default class Project {
     }
 
     static getProjects() {
-        console.log("get projects");
+        console.log("Model - get projects");
         return projects;
+    }
+
+    static getFormData() {
+        console.log("set form data model");
+        return Controller.getFormData();
+    }
+
+    static addProject() {
+        const data = this.getFormData();
+        const newProject = new Project(data.title, data.desc, data.date);
+        projects.push(newProject);
     }
 }

@@ -17,6 +17,19 @@ export default class Controller {
     static getProjects() {
         return Project.getProjects();
     }
+    static getFormData() {
+        console.log("get form data - controller");
+        return View.getFormData();
+    }
+    static setFormData() {
+        console.log("set form data - controller");
+        const data = this.getFormData();
+        const title = data.title;
+        const desc = data.desc;
+        const date = data.date;
+
+        return { title, desc, date };
+    }
     // static loadProjectView(project) {
     //     return View.loadProjectView(project);
     // }
@@ -30,12 +43,19 @@ View.addGlobalEventListener("click", "a", (e) => {
 
 View.addGlobalEventListener("click", "#add-project", (e) => {
     e.preventDefault();
-    View.loadForm();
+    View.renderForm();
 });
 
 View.addGlobalEventListener("click", "#close", (e) => {
     e.preventDefault();
-    View.closeForm();
+    View.removeForm();
+});
+
+View.addGlobalEventListener("click", "#submit", (e) => {
+    console.log("submit clicked");
+    Controller.getFormData();
+    Project.addProject();
+    View.renderSidebarProjects();
 });
 
 function displayProjects() {
