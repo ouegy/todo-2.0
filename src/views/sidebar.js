@@ -14,7 +14,7 @@ export function renderSidebarProjects() {
         sidebarList.appendChild(li);
         a.addEventListener("click", (e) => {
             e.preventDefault;
-            //loadProjectView(project);
+            View.loadProjectView(project);
         });
     });
 }

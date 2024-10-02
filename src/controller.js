@@ -17,6 +17,9 @@ export default class Controller {
     static getProjects() {
         return Project.getProjects();
     }
+    // static loadProjectView(project) {
+    //     return View.loadProjectView(project);
+    // }
 }
 
 View.addGlobalEventListener("click", "a", (e) => {

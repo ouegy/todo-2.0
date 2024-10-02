@@ -19,34 +19,53 @@ export default class View {
         if (classes) ele.classList.add(classes);
         return ele;
     }
+    static createHeader(pageName, classes) {
+        const home = document.createElement("div", classes);
+        const title = this.createElement("h1", pageName, "title");
+        home.appendChild(title);
+        return home;
+    }
     static loadForm() {
-        const content = document.getElementById("form-container");
-        content.appendChild(createForm());
-        content.classList.add("fade-in");
+        const main = document.getElementById("main");
+        const formContainer = document.createElement("div");
+        formContainer.setAttribute("id", "form-container");
+        main.prepend(formContainer);
+        formContainer.appendChild(createForm());
+        formContainer.classList.add("fade-in");
     }
     static closeForm() {
-        const parent = document.getElementById("form-container");
+        const parent = document.getElementById("main");
         parent.classList.remove("fade-in");
-        const child = document.getElementById("add");
+        const child = document.getElementById("form-container");
         parent.removeChild(child);
     }
     static renderSidebarProjects() {
         return renderSidebarProjects();
     }
+    static renderTasks(project) {
+        const tasks = project.tasks;
+        const description = document.querySelector(".description");
+        const ul = document.createElement("ul");
+        tasks.forEach((task) => {
+            const li = this.createElement("li", task.title);
+            ul.appendChild(li);
+            description.appendChild(ul);
+        });
+    }
+    static loadProjectView(project) {
+        const content = document.getElementById("main");
+        content.replaceChildren();
+        content.appendChild(this.createProjectView(project));
+        this.renderTasks(project);
+    }
+    static createProjectView(project) {
+        const projectView = this.createHeader(project.title, "project");
+        const description = this.createElement(
+            "p",
+            project.desc,
+            "description"
+        );
+        projectView.appendChild(description);
+        return projectView;
+    }
 }
-
-// View.addGlobalEventListener("click", "a", (e) => {
-//     e.preventDefault();
-//     console.log(e.target.textContent);
-//     return e.target.textContent;
-// });
-
-// View.addGlobalEventListener("click", "#add-project", (e) => {
-//     e.preventDefault();
-//     View.loadForm();
-// });
-
-// View.addGlobalEventListener("click", "#close", (e) => {
-//     e.preventDefault();
-//     View.closeForm();
-// });
