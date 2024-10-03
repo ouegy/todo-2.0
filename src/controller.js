@@ -1,18 +1,37 @@
 import Project from "./models/project";
+import Task from "./models/Task";
 import View from "./views/view";
 
 export function App() {
     const model = new Project();
     const view = new View();
+    const projects = Project.getProjects();
     const controller = new Controller(view, model);
-
-    return { model, view, controller };
+    const currentProject = projects[0];
+    View.loadHomeView(projects[0]);
+    View.renderSidebarProjects();
+    console.log(currentProject);
+    return {
+        model,
+        view,
+        controller,
+        currentProject,
+    };
 }
 
 export default class Controller {
     constructor(view, model) {
         this.view = view;
         this.model = model;
+    }
+    // working
+    static setCurrentProject(project) {
+        console.log(project); // returns array of 2 items - 1 undefined
+        console.log("inside set current project");
+        //console.log(this.currentProject);
+    }
+    static getCurrentProject() {
+        return currentProject;
     }
     static getProjects() {
         return Project.getProjects();
@@ -30,20 +49,34 @@ export default class Controller {
 
         return { title, desc, date };
     }
-    // static loadProjectView(project) {
-    //     return View.loadProjectView(project);
-    // }
 }
 
-View.addGlobalEventListener("click", "a", (e) => {
+View.addGlobalEventListener("click", "a.project", (e) => {
     e.preventDefault();
-    console.log(e.target.textContent);
-    return e.target.textContent;
+    const projects = Project.getProjects();
+    // projects.forEach((project) => {
+    //     let title = project.title;
+    //     if (e.target.textContent == title) {
+    //         console.log("its a match");
+    //         return project;
+    //     }
+    // });
+    const clicked = projects.map(function (item) {
+        if (item.title == e.target.textContent) return item;
+    });
+    //currentProject = clicked;
+    //Controller.setCurrentProject(clicked);
+    //console.log(clicked); // working
 });
 
 View.addGlobalEventListener("click", "#add-project", (e) => {
     e.preventDefault();
-    View.renderForm();
+    View.renderForm("project");
+});
+
+View.addGlobalEventListener("click", "#add-task", (e) => {
+    e.preventDefault();
+    View.renderForm("task");
 });
 
 View.addGlobalEventListener("click", "#close", (e) => {
@@ -52,14 +85,18 @@ View.addGlobalEventListener("click", "#close", (e) => {
 });
 
 View.addGlobalEventListener("click", "#submit", (e) => {
-    console.log("submit clicked");
+    e.preventDefault();
+    const formType = e.target.dataset.type;
+    console.log("submit clicked"); // working
+    console.log(formType); // working
     Controller.getFormData();
-    Project.addProject();
-    View.renderSidebarProjects();
+    //working
+    if (formType == "project") {
+        Project.addProject();
+        View.renderSidebarProjects();
+    }
+    if (formType == "task") {
+        Task.addTask();
+        View.renderTasks();
+    }
 });
-
-function displayProjects() {
-    View.renderSidebarProjects();
-}
-
-displayProjects();

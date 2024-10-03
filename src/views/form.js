@@ -1,6 +1,8 @@
 import View from "./view";
 
-export default function createForm() {
+// this is fine.
+
+export default function createForm(type) {
     const form = document.createElement("form");
     form.setAttribute("id", "add");
 
@@ -22,8 +24,9 @@ export default function createForm() {
     input3.setAttribute("type", "date");
     input3.setAttribute("id", "date");
 
-    const submit = View.createElement("button", "Add Project");
+    const submit = View.createElement("button", "Add " + type);
     submit.setAttribute("id", "submit");
+    submit.setAttribute("data-type", type);
 
     const close = View.createElement("button", "Close");
     close.setAttribute("id", "close");

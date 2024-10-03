@@ -1,8 +1,6 @@
 import createForm from "./form";
 import Controller from "../controller";
 
-import { renderSidebarProjects } from "./sidebar";
-
 export default class View {
     static addGlobalEventListener(type, selector, callback, options) {
         document.addEventListener(
@@ -25,12 +23,12 @@ export default class View {
         home.appendChild(title);
         return home;
     }
-    static renderForm() {
+    static renderForm(type) {
         const main = document.getElementById("main");
         const formContainer = document.createElement("div");
         formContainer.setAttribute("id", "form-container");
         main.prepend(formContainer);
-        formContainer.appendChild(createForm());
+        formContainer.appendChild(createForm(type));
         formContainer.classList.add("fade-in");
     }
     static removeForm() {
@@ -40,23 +38,69 @@ export default class View {
         parent.removeChild(child);
     }
     static renderSidebarProjects() {
-        return renderSidebarProjects();
+        const sidebarList = document.getElementById("projects");
+        sidebarList.replaceChildren();
+        const projects = Controller.getProjects();
+
+        // const currentProject = Controller.getCurrentProject();
+
+        // const setCurrentProject = (project) => project; ///// REFACTOR to this style
+        // const getCurrentProject = () => currentProject;
+
+        projects.forEach((project) => {
+            const li = document.createElement("li");
+            const a = this.createElement("a", project.title, "project");
+            a.setAttribute("href", "#");
+            li.appendChild(a);
+            sidebarList.appendChild(li);
+            a.addEventListener("click", (e) => {
+                e.preventDefault;
+                this.loadProjectView(project);
+                Controller.setCurrentProject(project); // need to test
+            });
+        });
     }
     static renderTasks(project) {
         const tasks = project.tasks;
-        const description = document.querySelector(".description");
+        const projectDescription = document.querySelector(".description");
         const ul = document.createElement("ul");
         tasks.forEach((task) => {
             const li = this.createElement("li", task.title);
+            const description = this.createElement(
+                "p",
+                task.desc,
+                "description"
+            );
+            li.appendChild(description);
             ul.appendChild(li);
-            description.appendChild(ul);
+            projectDescription.appendChild(ul);
         });
     }
+    // in use working
+    static loadHomeView(project) {
+        const defaultProject = this.loadProjectView(project);
+        return defaultProject;
+    }
+
+    // working
     static loadProjectView(project) {
-        const content = document.getElementById("main");
-        content.replaceChildren();
-        content.appendChild(this.createProjectView(project));
+        const content = document.getElementById("main"); // get the main div
+        const projectsContainer = document.createElement("div"); // create a container div for the projects
+        projectsContainer.setAttribute("id", "projects-container");
+        content.replaceChildren(); // clear the view
+        content.appendChild(projectsContainer);
+        projectsContainer.appendChild(this.createProjectView(project));
         this.renderTasks(project);
+        this.loadAddTaskButton();
+    }
+    static createAddTaskButton() {
+        const button = this.createElement("button", "+ Add Task");
+        button.setAttribute("id", "add-task");
+        return button;
+    }
+    static loadAddTaskButton() {
+        const main = document.getElementById("main");
+        main.appendChild(this.createAddTaskButton());
     }
     static createProjectView(project) {
         const projectView = this.createHeader(project.title, "project");
@@ -71,9 +115,9 @@ export default class View {
     static getFormData() {
         let title = document.getElementById("title").value;
         console.log("View - get form data");
-        let description = document.getElementById("description").value;
+        let desc = document.getElementById("description").value;
         let date = document.getElementById("date").value;
 
-        return { title, description, date };
+        return { title, desc, date };
     }
 }
