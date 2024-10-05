@@ -36,7 +36,7 @@ export default class View {
         const parent = document.getElementById("main");
         parent.classList.remove("fade-in");
         const child = document.getElementById("form-container");
-        parent.removeChild(child);
+        if (child) parent.removeChild(child);
     }
     static renderSidebarProjects() {
         const sidebarList = document.getElementById("projects");
@@ -124,6 +124,7 @@ View.addGlobalEventListener("click", "#add-project", (e) => {
 });
 View.addGlobalEventListener("click", "#add-task", (e) => {
     e.preventDefault();
+    View.removeForm();
     View.renderForm("task");
 });
 View.addGlobalEventListener("click", "#close", (e) => {
