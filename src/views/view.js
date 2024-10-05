@@ -42,22 +42,19 @@ export default class View {
         const sidebarList = document.getElementById("projects");
         sidebarList.replaceChildren();
         const projects = controller.projects;
-
         projects.forEach((project) => {
             const li = document.createElement("li");
             const a = this.createElement("a", project.title, "project");
             a.setAttribute("href", "#");
             li.appendChild(a);
             sidebarList.appendChild(li);
-            a.addEventListener("click", (e) => {
-                e.preventDefault;
-                //this.loadProjectView(project);
-            });
         });
     }
     static renderTasks(project) {
         const tasks = project.tasks;
         const projectDescription = document.querySelector(".description");
+        console.log(projectDescription);
+        projectDescription.replaceChildren();
         const ul = document.createElement("ul");
         tasks.forEach((task) => {
             const li = this.createElement("li", task.title);
@@ -71,27 +68,14 @@ export default class View {
             projectDescription.appendChild(ul);
         });
     }
-    // // in use working
     static loadHomeView() {
         const projects = View.getProjects();
         View.renderSidebarProjects();
         View.renderProjectView(projects[0]);
-        //console.table(projects);
     }
     static getProjects() {
         return controller.projects;
     }
-    // static setProject(project) {
-    //     const currentProject = project;
-    //     console.table(currentProject);
-    //     return currentProject;
-    // }
-    // static getProject(project) {
-    //     this.setProject(project);
-    //     return currentProject;
-    // }
-
-    // // working
     static renderProjectView(project) {
         const content = document.getElementById("main");
         const projectsContainer = document.createElement("div");
@@ -151,49 +135,25 @@ View.addGlobalEventListener("click", "#submit", (e) => {
     e.preventDefault();
     const formType = e.target.dataset.type;
     const data = View.getFormData();
-    //working
     if (formType == "project") {
         controller.addProject(data);
         View.renderSidebarProjects();
     }
     if (formType == "task") {
-        console.log(formType);
         const clicked = projects.map(function (project) {
-            if (project.title == projectTtile)
+            if (project.title == projectTtile) {
                 controller.addTask(data, project);
-            View.renderTasks(project);
+                View.renderTasks(project);
+            }
         });
-        //
     }
 });
 View.addGlobalEventListener("click", "a.project", (e) => {
     e.preventDefault();
     const projects = View.getProjects();
-    // projects.forEach((project) => {
-    //     let title = project.title;
-    //     if (e.target.textContent == title) {
-    //         console.log("its a match");
-    //         return project;
-    //     }
-    // });
-
-    // Call a function from the view which maps the clicked project to a new array
-    // and returns the new array
-
     const clicked = projects.map(function (project) {
         if (project.title == e.target.textContent) {
             View.renderProjectView(project);
-            // controller.getCurrentProject();
-            // console.log(controller.getCurrentProject());
-            // Controller.setCurrentProject(project);
-            // View.setProject(project);
-            //console.log(project["tasks"]);
-            //return clicked;
         }
-        //
     });
-    console.table(clicked);
-    //currentProject = clicked;
-    //Controller.setCurrentProject(clicked);
-    //console.log(clicked); // working
 });
