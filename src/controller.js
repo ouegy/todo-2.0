@@ -52,6 +52,9 @@ export default class Controller {
     addProject(newProject) {
         this.projects.push(newProject);
     }
+    addTask(newTask) {
+        this.projects.tasks.push(newTask);
+    }
     static getFormData() {
         return View.getFormData();
     }
@@ -83,11 +86,6 @@ export default class Controller {
 }
 
 // const app = new App();
-
-// View.addGlobalEventListener("click", "#add-task", (e) => {
-//     e.preventDefault();
-//     View.renderForm("task");
-// });
 
 // const app = new App();
 //console.table(app.controller.projects);

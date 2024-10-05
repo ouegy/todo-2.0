@@ -91,17 +91,17 @@ export default class View {
         content.appendChild(projectsContainer);
         projectsContainer.appendChild(this.createProjectView(project));
         this.renderTasks(project);
-        // this.loadAddTaskButton();
+        this.loadAddTaskButton();
     }
-    // static createAddTaskButton() {
-    //     const button = this.createElement("button", "+ Add Task");
-    //     button.setAttribute("id", "add-task");
-    //     return button;
-    // }
-    // static loadAddTaskButton() {
-    //     const main = document.getElementById("main");
-    //     main.appendChild(this.createAddTaskButton());
-    // }
+    static createAddTaskButton() {
+        const button = this.createElement("button", "+ Add Task");
+        button.setAttribute("id", "add-task");
+        return button;
+    }
+    static loadAddTaskButton() {
+        const main = document.getElementById("main");
+        main.appendChild(this.createAddTaskButton());
+    }
     static createProjectView(project) {
         const projectView = this.createHeader(project.title, "project");
         const description = this.createElement(
@@ -128,6 +128,10 @@ View.addGlobalEventListener("click", "#add-project", (e) => {
     e.preventDefault();
     View.renderForm("project");
 });
+View.addGlobalEventListener("click", "#add-task", (e) => {
+    e.preventDefault();
+    View.renderForm("task");
+});
 View.addGlobalEventListener("click", "#close", (e) => {
     e.preventDefault();
     View.removeForm();
@@ -135,14 +139,15 @@ View.addGlobalEventListener("click", "#close", (e) => {
 View.addGlobalEventListener("click", "#submit", (e) => {
     e.preventDefault();
     const formType = e.target.dataset.type;
-    const newProject = View.getFormData();
+    const data = View.getFormData();
     //working
     if (formType == "project") {
-        controller.addProject(newProject);
+        controller.addProject(data);
         View.renderSidebarProjects();
     }
     if (formType == "task") {
-        //Task.addTask();
+        console.log(formType);
+        controller.addTask(data);
         View.renderTasks();
     }
 });
@@ -157,8 +162,9 @@ View.addGlobalEventListener("click", "a.project", (e) => {
     //     }
     // });
     const clicked = projects.map(function (project) {
-        if (project.title == e.target.textContent)
-            return View.renderProjectView(project);
+        if (project.title == e.target.textContent) {
+            View.renderProjectView(project);
+        }
     });
     //currentProject = clicked;
     //Controller.setCurrentProject(clicked);
