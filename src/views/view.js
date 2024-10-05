@@ -119,6 +119,7 @@ export default class View {
 
 View.addGlobalEventListener("click", "#add-project", (e) => {
     e.preventDefault();
+    View.removeForm();
     View.renderForm("project");
 });
 View.addGlobalEventListener("click", "#add-task", (e) => {
@@ -142,8 +143,9 @@ View.addGlobalEventListener("click", "#submit", (e) => {
     if (formType == "task") {
         const clicked = projects.map(function (project) {
             if (project.title == projectTtile) {
-                controller.addTask(data, project);
+                controller.addTask(data.title, data.desc, data.date, project);
                 View.renderTasks(project);
+                console.table(project.tasks);
             }
         });
     }
@@ -152,6 +154,7 @@ View.addGlobalEventListener("click", "a.project", (e) => {
     e.preventDefault();
     const projects = View.getProjects();
     const clicked = projects.map(function (project) {
+        if (e.target.textContent == "Home") View.renderProjectView(projects[0]);
         if (project.title == e.target.textContent) {
             View.renderProjectView(project);
         }

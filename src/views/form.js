@@ -24,6 +24,10 @@ export default function createForm(type) {
     input3.setAttribute("type", "date");
     input3.setAttribute("id", "date");
 
+    // const completed = document.createElement("input");
+    // completed.setAttribute("type", "text");
+    // completed.setAttribute("class", "hidden");
+
     const submit = View.createElement("button", "Add " + type);
     submit.setAttribute("id", "submit");
     submit.setAttribute("data-type", type);
