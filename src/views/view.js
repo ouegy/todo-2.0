@@ -76,11 +76,20 @@ export default class View {
         const projects = View.getProjects();
         View.renderSidebarProjects();
         View.renderProjectView(projects[0]);
-        console.table(projects);
+        //console.table(projects);
     }
     static getProjects() {
         return controller.projects;
     }
+    // static setProject(project) {
+    //     const currentProject = project;
+    //     console.table(currentProject);
+    //     return currentProject;
+    // }
+    // static getProject(project) {
+    //     this.setProject(project);
+    //     return currentProject;
+    // }
 
     // // working
     static renderProjectView(project) {
@@ -137,6 +146,8 @@ View.addGlobalEventListener("click", "#close", (e) => {
     View.removeForm();
 });
 View.addGlobalEventListener("click", "#submit", (e) => {
+    const projectTtile = document.querySelector("h1.title").textContent;
+    const projects = View.getProjects();
     e.preventDefault();
     const formType = e.target.dataset.type;
     const data = View.getFormData();
@@ -147,8 +158,12 @@ View.addGlobalEventListener("click", "#submit", (e) => {
     }
     if (formType == "task") {
         console.log(formType);
-        controller.addTask(data);
-        View.renderTasks();
+        const clicked = projects.map(function (project) {
+            if (project.title == projectTtile)
+                controller.addTask(data, project);
+            View.renderTasks(project);
+        });
+        //
     }
 });
 View.addGlobalEventListener("click", "a.project", (e) => {
@@ -161,11 +176,23 @@ View.addGlobalEventListener("click", "a.project", (e) => {
     //         return project;
     //     }
     // });
+
+    // Call a function from the view which maps the clicked project to a new array
+    // and returns the new array
+
     const clicked = projects.map(function (project) {
         if (project.title == e.target.textContent) {
             View.renderProjectView(project);
+            // controller.getCurrentProject();
+            // console.log(controller.getCurrentProject());
+            // Controller.setCurrentProject(project);
+            // View.setProject(project);
+            //console.log(project["tasks"]);
+            //return clicked;
         }
+        //
     });
+    console.table(clicked);
     //currentProject = clicked;
     //Controller.setCurrentProject(clicked);
     //console.log(clicked); // working
