@@ -1,5 +1,6 @@
 import createForm from "./form";
 import Controller from "../controller";
+const controller = new Controller();
 
 export default class View {
     static addGlobalEventListener(type, selector, callback, options) {
@@ -40,12 +41,7 @@ export default class View {
     static renderSidebarProjects() {
         const sidebarList = document.getElementById("projects");
         sidebarList.replaceChildren();
-        const projects = Controller.getProjects();
-
-        // const currentProject = Controller.getCurrentProject();
-
-        // const setCurrentProject = (project) => project; ///// REFACTOR to this style
-        // const getCurrentProject = () => currentProject;
+        const projects = controller.projects;
 
         projects.forEach((project) => {
             const li = document.createElement("li");
@@ -55,8 +51,7 @@ export default class View {
             sidebarList.appendChild(li);
             a.addEventListener("click", (e) => {
                 e.preventDefault;
-                this.loadProjectView(project);
-                Controller.setCurrentProject(project); // need to test
+                //this.loadProjectView(project);
             });
         });
     }
@@ -76,32 +71,37 @@ export default class View {
             projectDescription.appendChild(ul);
         });
     }
-    // in use working
-    static loadHomeView(project) {
-        const defaultProject = this.loadProjectView(project);
-        return defaultProject;
+    // // in use working
+    static loadHomeView() {
+        const projects = View.getProjects();
+        View.renderSidebarProjects();
+        View.renderProjectView(projects[0]);
+        console.table(projects);
+    }
+    static getProjects() {
+        return controller.projects;
     }
 
-    // working
-    static loadProjectView(project) {
-        const content = document.getElementById("main"); // get the main div
-        const projectsContainer = document.createElement("div"); // create a container div for the projects
+    // // working
+    static renderProjectView(project) {
+        const content = document.getElementById("main");
+        const projectsContainer = document.createElement("div");
         projectsContainer.setAttribute("id", "projects-container");
         content.replaceChildren(); // clear the view
         content.appendChild(projectsContainer);
         projectsContainer.appendChild(this.createProjectView(project));
         this.renderTasks(project);
-        this.loadAddTaskButton();
+        // this.loadAddTaskButton();
     }
-    static createAddTaskButton() {
-        const button = this.createElement("button", "+ Add Task");
-        button.setAttribute("id", "add-task");
-        return button;
-    }
-    static loadAddTaskButton() {
-        const main = document.getElementById("main");
-        main.appendChild(this.createAddTaskButton());
-    }
+    // static createAddTaskButton() {
+    //     const button = this.createElement("button", "+ Add Task");
+    //     button.setAttribute("id", "add-task");
+    //     return button;
+    // }
+    // static loadAddTaskButton() {
+    //     const main = document.getElementById("main");
+    //     main.appendChild(this.createAddTaskButton());
+    // }
     static createProjectView(project) {
         const projectView = this.createHeader(project.title, "project");
         const description = this.createElement(
@@ -121,3 +121,45 @@ export default class View {
         return { title, desc, date };
     }
 }
+
+// User interactions
+
+View.addGlobalEventListener("click", "#add-project", (e) => {
+    e.preventDefault();
+    View.renderForm("project");
+});
+View.addGlobalEventListener("click", "#close", (e) => {
+    e.preventDefault();
+    View.removeForm();
+});
+View.addGlobalEventListener("click", "#submit", (e) => {
+    e.preventDefault();
+    const formType = e.target.dataset.type;
+    const newProject = View.getFormData();
+    //working
+    if (formType == "project") {
+        controller.addProject(newProject);
+        View.renderSidebarProjects();
+    }
+    if (formType == "task") {
+        //Task.addTask();
+        View.renderTasks();
+    }
+});
+View.addGlobalEventListener("click", "a.project", (e) => {
+    e.preventDefault();
+    const projects = View.getProjects();
+    // projects.forEach((project) => {
+    //     let title = project.title;
+    //     if (e.target.textContent == title) {
+    //         console.log("its a match");
+    //         return project;
+    //     }
+    // });
+    const clicked = projects.map(function (item) {
+        if (item.title == e.target.textContent) return item;
+    });
+    //currentProject = clicked;
+    //Controller.setCurrentProject(clicked);
+    //console.log(clicked); // working
+});

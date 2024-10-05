@@ -1,6 +1,5 @@
 import "./styles.css";
-import { App } from "./controller";
+import View from "./views/view";
+// import { App } from "./controller";
 
-const app = new App();
-
-console.log(app);
+document.addEventListener("DOMContentLoaded", View.loadHomeView);

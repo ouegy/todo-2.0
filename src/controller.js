@@ -2,101 +2,96 @@ import Project from "./models/project";
 import Task from "./models/Task";
 import View from "./views/view";
 
-export function App() {
-    const model = new Project();
-    const view = new View();
-    const projects = Project.getProjects();
-    const controller = new Controller(view, model);
-    const currentProject = projects[0];
-    View.loadHomeView(projects[0]);
-    View.renderSidebarProjects();
-    console.log(currentProject);
-    return {
-        model,
-        view,
-        controller,
-        currentProject,
-    };
-}
+// export function App() {
+//     const project = new Project();
+//     const view = new View();
+//     const task = new Task();
+//     const controller = new Controller(project, view, task);
+//     View.loadHomeView();
+//     return { project, view, task, controller };
+// }
 
 export default class Controller {
-    constructor(view, model) {
+    constructor(project, view, task) {
         this.view = view;
-        this.model = model;
+        this.project = project;
+        this.task = task;
+        this.projects = [
+            {
+                title: "Default Project",
+                desc: "This is your default project. Complete the tasks below to learn the features of the app.",
+                date: "2024-10-25",
+                tasks: [
+                    {
+                        title: "Create New Project",
+                        desc: "Once you have created your first project you can mark this task as complete",
+                        date: "2024-10-25",
+                    },
+                ],
+            },
+            {
+                title: "Default Project2",
+                desc: "This is your default project. Complete the tasks below to learn the features of the app.",
+                date: "2024-10-25",
+                tasks: [
+                    {
+                        title: "Create New Project2",
+                        desc: "Once you have created your first project you can mark this task as complete",
+                        date: "2024-10-25",
+                    },
+                ],
+            },
+        ];
     }
-    // working
-    static setCurrentProject(project) {
-        console.log(project); // returns array of 2 items - 1 undefined
-        console.log("inside set current project");
-        //console.log(this.currentProject);
-    }
-    static getCurrentProject() {
-        return currentProject;
+    setProjects(projects) {
+        this.projects = projects;
     }
     static getProjects() {
-        return Project.getProjects();
+        return this.projects;
+    }
+    addProject(newProject) {
+        this.projects.push(newProject);
     }
     static getFormData() {
-        console.log("get form data - controller");
         return View.getFormData();
     }
-    static setFormData() {
-        console.log("set form data - controller");
-        const data = this.getFormData();
-        const title = data.title;
-        const desc = data.desc;
-        const date = data.date;
+    // // working
+    // static setCurrentProject(project) {
+    //     console.log(project); // returns array of 2 items - 1 undefined
+    //     console.log("inside set current project");
+    //     //console.log(this.currentProject);
+    // }
+    // static getCurrentProject() {
+    //     return currentProject;
+    // }
+    // static getProjects() {
+    //     return Project.getProjects();
+    // }
+    // static getFormData() {
+    //     console.log("get form data - controller");
+    //     return View.getFormData();
+    // }
+    // static setFormData() {
+    //     console.log("set form data - controller");
+    //     const data = this.getFormData();
+    //     const title = data.title;
+    //     const desc = data.desc;
+    //     const date = data.date;
 
-        return { title, desc, date };
-    }
+    //     return { title, desc, date };
+    // }
 }
 
-View.addGlobalEventListener("click", "a.project", (e) => {
-    e.preventDefault();
-    const projects = Project.getProjects();
-    // projects.forEach((project) => {
-    //     let title = project.title;
-    //     if (e.target.textContent == title) {
-    //         console.log("its a match");
-    //         return project;
-    //     }
-    // });
-    const clicked = projects.map(function (item) {
-        if (item.title == e.target.textContent) return item;
-    });
-    //currentProject = clicked;
-    //Controller.setCurrentProject(clicked);
-    //console.log(clicked); // working
-});
+// const app = new App();
 
-View.addGlobalEventListener("click", "#add-project", (e) => {
-    e.preventDefault();
-    View.renderForm("project");
-});
+// View.addGlobalEventListener("click", "#add-task", (e) => {
+//     e.preventDefault();
+//     View.renderForm("task");
+// });
 
-View.addGlobalEventListener("click", "#add-task", (e) => {
-    e.preventDefault();
-    View.renderForm("task");
-});
-
-View.addGlobalEventListener("click", "#close", (e) => {
-    e.preventDefault();
-    View.removeForm();
-});
-
-View.addGlobalEventListener("click", "#submit", (e) => {
-    e.preventDefault();
-    const formType = e.target.dataset.type;
-    console.log("submit clicked"); // working
-    console.log(formType); // working
-    Controller.getFormData();
-    //working
-    if (formType == "project") {
-        Project.addProject();
-        View.renderSidebarProjects();
-    }
-    if (formType == "task") {
-        Task.addTask();
-        View.renderTasks();
-    }
-});
+// const app = new App();
+//console.table(app.controller.projects);
+//console.table(app.controller.getProjects);
+//console.table(app.controller.getProjects());
+// console.table(app.controller.task);
+// console.table(app.controller.project);
