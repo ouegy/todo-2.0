@@ -156,8 +156,9 @@ View.addGlobalEventListener("click", "a.project", (e) => {
     //         return project;
     //     }
     // });
-    const clicked = projects.map(function (item) {
-        if (item.title == e.target.textContent) return item;
+    const clicked = projects.map(function (project) {
+        if (project.title == e.target.textContent)
+            return View.renderProjectView(project);
     });
     //currentProject = clicked;
     //Controller.setCurrentProject(clicked);

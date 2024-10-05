@@ -1,6 +1,6 @@
 //console.table(projects);
-//const controller = new Controller();
-console.table(controller.getFormData());
+// const controller = new Controller();
+// console.table(controller.getFormData());
 
 export default class Project {
     constructor(title, desc, date) {
