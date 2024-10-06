@@ -1,5 +1,5 @@
 export default class Task {
-    constructor(title, desc, date) {
+    constructor(title, desc, date, priority) {
         this.title = title;
         this.desc = desc;
         this.date = date;
@@ -12,6 +12,12 @@ export default class Task {
 
     getTitle() {
         return this.title;
+    }
+    setPriority(priority) {
+        this.priority = priority;
+    }
+    getProperty() {
+        return this.priority;
     }
 
     setCompleted(completed) {

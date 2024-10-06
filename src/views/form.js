@@ -1,8 +1,16 @@
+import Controller from "../controller";
 import View from "./view";
 
 // this is fine.
 
 export default function createForm(type) {
+    const formContainer = View.createElement("div", "", "form-container");
+    const formHeader = View.createElement("div", "", "form-header");
+    const formTitle = View.createElement("h3", "Add " + type);
+    const formButtons = View.createElement("div", "", "form-buttons");
+    const edit = View.createElement("button", "");
+    const del = View.createElement("button", "");
+
     const form = document.createElement("form");
     form.setAttribute("id", "add");
 
@@ -35,11 +43,18 @@ export default function createForm(type) {
     const close = View.createElement("button", "Close");
     close.setAttribute("id", "close");
 
+    formButtons.appendChild(edit);
+    formButtons.appendChild(del);
+    formHeader.appendChild(formTitle);
+    formHeader.appendChild(formButtons);
+    formContainer.appendChild(formHeader);
+    formHeader.appendChild(form);
+
     form.appendChild(title).appendChild(input);
     form.appendChild(description).appendChild(input2);
     form.appendChild(date).appendChild(input3);
     form.appendChild(submit);
     form.appendChild(close);
 
-    return form;
+    return formContainer;
 }

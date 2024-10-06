@@ -13,15 +13,37 @@ export default class Controller {
                 date: "2024-10-25",
                 tasks: [
                     {
-                        title: "Create New Project",
-                        desc: "Once you have created your first project you can mark this task as complete",
+                        title: "Expired Task: ",
+                        desc: "Visit Github",
                         date: "2024-10-25",
+                        priority: "low",
+                        //completed: false,
+                    },
+                    {
+                        title: "High Priority Task: Create your first project",
+                        desc: "The button on the bottom left will always be available for this.",
+                        date: "2024-10-25",
+                        priority: "high",
+                        completed: true,
+                    },
+                    {
+                        title: "Medium Priority Task: Create some tasks to go with your new project",
+                        desc: "Projects are displayed in the sidebar. Try clicking on the project you just created.",
+                        date: "2024-10-25",
+                        priority: "high",
+                        //completed: false,
+                    },
+                    {
+                        title: "Low Priority Task: Make a cup of coffee and procrastinate on the other tasks.",
+                        desc: "",
+                        date: "2024-10-25",
+                        priority: "med",
                         //completed: false,
                     },
                 ],
             },
             {
-                title: "Default Project2",
+                title: "Example Project",
                 desc: "This is your default project. Complete the tasks below to learn the features of the app.",
                 date: "2024-10-25",
                 tasks: [
