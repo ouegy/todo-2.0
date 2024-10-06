@@ -139,7 +139,7 @@
 
   /* Sidebar styles */
   .sidebar {
-      padding: 20px;
+      padding: 1.3rem;
       background-color: #E0EDB9;
       grid-column: 1 / 2;
       grid-row: 1 / 3;
@@ -215,15 +215,15 @@
     margin: 0 auto;
     margin-top:2rem;
     margin-bottom: 2rem;
-    width:90%;
+    width:85%;
     background-color: #EFF2EB;
     display: flex;
     grid-template-columns: 12fr 5fr;
     grid-template-rows: 1fr;
     grid-column: 2 / 5;
     grid-row: 2 / 3;
-    padding: 30px 20px 0 20px;
-    gap: 20px;
+    padding: 1.3rem;
+    gap: 1.3rem;
     flex-direction: column;
     justify-content: flex-start;
   }
@@ -233,12 +233,12 @@
     grid-column: 2 / 5;
     grid-row: 1 / 2;
     padding: 2rem;
-    gap: 20px;
+    gap: 1.3rem;
     border-radius: 10px;
     
   }
-  .form-header h3 {
-    margin-bottom: 1rem;
+  .form-header h2 {
+    margin-bottom: 0.5rem;
   }
   #add {
     display: flex;
@@ -256,8 +256,8 @@
   }
    .announcement-container p {
     font-size: 0.8rem;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
+    margin-bottom: 1.3rem;
+    padding-bottom: 1.3rem;
     border-bottom: 1px solid #000;
    }
    .announcement-container p:last-child {
@@ -274,7 +274,7 @@
     display: grid;
     resize: both;
     overflow: auto;
-    gap:20px;
+    gap:1.3rem;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     grid-template-rows: repeat(2, 1fr);
     padding-right: 7px;
@@ -337,7 +337,7 @@
     background-color: #fff;
     color: #333;
     font-size: 1rem;
-    padding: 20px;
+    padding: 1.3rem;
     border-radius: 10px;
     border-left: 6px solid #F0B329;
    }
@@ -345,7 +345,7 @@
    /* Task cards styles */
 
    .tasks {
-    margin:4rem;
+    margin:3rem;
    }
 
    .tasks .card {
@@ -389,15 +389,15 @@
    }
   
    .card img {
-    width: 20px;
+    width: 1.3rem;
    }
   
    .card-icons {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    gap:20px;
-    margin-top: 20px;
+    gap:1.3rem;
+    margin-top: 1.3rem;
    }
   
    .hidden {

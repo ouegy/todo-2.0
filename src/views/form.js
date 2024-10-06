@@ -6,7 +6,7 @@ import View from "./view";
 export default function createForm(type) {
     const formContainer = View.createElement("div", "", "form-container");
     const formHeader = View.createElement("div", "", "form-header");
-    const formTitle = View.createElement("h3", "Add " + type);
+    const formTitle = View.createElement("h2", "Add " + type);
 
     const form = document.createElement("form");
     form.setAttribute("id", "add");
