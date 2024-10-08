@@ -13,18 +13,10 @@ export default class Controller {
                 date: "2024-10-25",
                 tasks: [
                     {
-                        title: "Expired Task: ",
-                        desc: "Visit Github",
-                        date: "2024-10-25",
-                        priority: "low",
-                        //completed: false,
-                    },
-                    {
                         title: "High Priority Task: Create your first project",
                         desc: "The button on the bottom left will always be available for this.",
                         date: "2024-10-25",
                         priority: "high",
-                        completed: true,
                     },
                     {
                         title: "Medium Priority Task: Create some tasks to go with your new project",
@@ -39,6 +31,13 @@ export default class Controller {
                         date: "2024-10-25",
                         priority: "med",
                         //completed: false,
+                    },
+                    {
+                        title: "Completed Task: ",
+                        desc: "Visit Github",
+                        date: "2024-10-25",
+                        priority: "low",
+                        completed: true,
                     },
                 ],
             },

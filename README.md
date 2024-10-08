@@ -29,6 +29,5 @@ The project is from The Odin Project [curriculum](https://www.theodinproject.com
 
 #### **Third party code:**
 
--   [modern-normalize](https://github.com/sindresorhus/modern-normalize)
 -   [Google Fonts](https://fonts.google.com/)
 -   [date-fns Library](https://date-fns.org/)

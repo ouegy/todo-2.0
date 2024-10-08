@@ -29,20 +29,16 @@ export default function createForm(type) {
     input3.setAttribute("type", "date");
     input3.setAttribute("id", "date");
 
-    // const completed = document.createElement("input");
-    // completed.setAttribute("type", "text");
-    // completed.setAttribute("class", "hidden");
-
-    const submit = View.createElement("button", "Add " + type);
+    const submit = View.createElement("button", "Add " + type, "button");
     submit.setAttribute("id", "submit");
     submit.setAttribute("data-type", type);
 
-    const close = View.createElement("button", "Close");
+    const close = View.createElement("button", "Close", "button");
     close.setAttribute("id", "close");
 
     formHeader.appendChild(formTitle);
     formContainer.appendChild(formHeader);
-    formHeader.appendChild(form);
+    formContainer.appendChild(form);
 
     form.appendChild(title).appendChild(input);
     form.appendChild(description).appendChild(input2);
