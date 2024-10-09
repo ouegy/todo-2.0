@@ -1,4 +1,5 @@
 import View from "./view";
+import Controller from "../controller";
 
 function createCheckbox() {
     return `<svg width="45" height="45" viewbox="0 0 95 95">
@@ -10,14 +11,13 @@ function createCheckbox() {
 }
 
 export default function renderTasks(project) {
-    const tasks = project.tasks;
+    const tasks = Controller.getProjectTasks(project);
     const projectDescription = document.querySelector(".tasks");
     projectDescription.replaceChildren();
 
     if (tasks) {
         tasks.forEach((task) => {
             let index = tasks.indexOf(task);
-            console.log(index);
             const checkboxWrapper = View.createElement(
                 "div",
                 "",
@@ -38,6 +38,7 @@ export default function renderTasks(project) {
             checkbox.setAttribute("id", "complete" + index);
             checkbox.setAttribute("class", "check");
             checkbox.setAttribute("type", "checkbox");
+            checkbox.setAttribute("data-title", task.title);
             const header = View.createElement("div", "", "task-header");
             const title = View.createElement("h3", task.title);
             const formButtons = View.createElement("div", "", "task-buttons");
@@ -45,7 +46,14 @@ export default function renderTasks(project) {
             const del = View.createElement("button", "");
 
             const p = View.createElement("p", task.desc, "description");
-            container.setAttribute("class", "card");
+
+            if (isComplete == false) {
+                container.setAttribute("class", "card");
+                checkbox.checked = false;
+            } else if (isComplete == true) {
+                container.setAttribute("class", "card grey");
+                checkbox.checked = true;
+            }
 
             formButtons.appendChild(edit);
             formButtons.appendChild(del);
@@ -61,13 +69,6 @@ export default function renderTasks(project) {
             container.appendChild(checkboxWrapper);
             container.appendChild(taskContainer);
             projectDescription.appendChild(container);
-
-            if (isComplete === true) {
-                checkbox.setAttribute("checked", "true");
-                taskContainer.setAttribute("class", "strikethrough");
-                const parent = taskContainer.parentNode;
-                parent.setAttribute("class", "card grey");
-            }
         });
     }
 }

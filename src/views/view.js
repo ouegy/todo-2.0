@@ -84,15 +84,25 @@ export default class View {
     }
     static getFormData() {
         let title = document.getElementById("title").value;
-        console.log("View - get form data");
         let desc = document.getElementById("description").value;
         let date = document.getElementById("date").value;
-
         return { title, desc, date };
     }
 }
 
 // User interactions
+
+View.addGlobalEventListener("click", ".check", (e) => {
+    const title = e.target.dataset.title;
+    const project = controller.getCurrentProject();
+    const tasks = project.tasks;
+    tasks.forEach((task) => {
+        if (task.title == e.target.dataset.title) {
+            controller.toggleComplete(task);
+        }
+    });
+    renderTasks(project);
+});
 
 View.addGlobalEventListener("click", "#add-project", (e) => {
     e.preventDefault();
@@ -131,6 +141,7 @@ View.addGlobalEventListener("click", "a.project", (e) => {
     e.preventDefault();
     const projects = View.getProjects();
     const clicked = projects.map(function (project) {
+        Controller.setCurrentProject(project);
         if (e.target.textContent == "Home") View.renderProjectView(projects[0]);
         if (project.title == e.target.textContent)
             View.renderProjectView(project);

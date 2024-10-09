@@ -1,4 +1,3 @@
-import Controller from "../controller";
 import View from "./view";
 
 // this is fine.
@@ -10,6 +9,9 @@ export default function createForm(type) {
 
     const form = document.createElement("form");
     form.setAttribute("id", "add");
+    const left = View.createElement("fieldset", "", "form-left");
+    const right = View.createElement("fieldset", "", "form-right");
+    const buttonContainer = View.createElement("div", "", "button-container");
 
     const title = View.createElement("label", "Title");
     title.setAttribute("for", "title");
@@ -19,8 +21,7 @@ export default function createForm(type) {
 
     const description = View.createElement("label", "Description");
     description.setAttribute("for", "description");
-    const input2 = document.createElement("input");
-    input2.setAttribute("type", "text");
+    const input2 = document.createElement("textarea");
     input2.setAttribute("id", "description");
 
     const date = View.createElement("label", "Due Date");
@@ -28,6 +29,23 @@ export default function createForm(type) {
     const input3 = document.createElement("input");
     input3.setAttribute("type", "date");
     input3.setAttribute("id", "date");
+
+    const priority = View.createElement("label", "Priority");
+    priority.setAttribute("for", "date");
+    const input4 = document.createElement("select");
+    input4.setAttribute("id", "priority");
+
+    const placeholder = View.createElement("option");
+    placeholder.textContent = "--Please set priority--";
+    const high = View.createElement("option", "Priority");
+    high.setAttribute("value", "High");
+    high.textContent = "High";
+    const med = View.createElement("option", "Priority");
+    med.setAttribute("value", "Medium");
+    med.textContent = "Medium";
+    const low = View.createElement("option", "Priority");
+    low.setAttribute("value", "Low");
+    low.textContent = "Low";
 
     const submit = View.createElement("button", "Add " + type, "button");
     submit.setAttribute("id", "submit");
@@ -40,11 +58,27 @@ export default function createForm(type) {
     formContainer.appendChild(formHeader);
     formContainer.appendChild(form);
 
-    form.appendChild(title).appendChild(input);
-    form.appendChild(description).appendChild(input2);
-    form.appendChild(date).appendChild(input3);
-    form.appendChild(submit);
-    form.appendChild(close);
+    input4.appendChild(placeholder);
+    input4.appendChild(low);
+    input4.appendChild(med);
+    input4.appendChild(high);
+
+    left.appendChild(title);
+    left.appendChild(input);
+    left.appendChild(description);
+    left.appendChild(input2);
+    left.appendChild(buttonContainer);
+
+    right.appendChild(date);
+    right.appendChild(input3);
+    right.appendChild(priority);
+    right.appendChild(input4);
+
+    buttonContainer.appendChild(submit);
+    buttonContainer.appendChild(close);
+
+    form.appendChild(left);
+    form.appendChild(right);
 
     return formContainer;
 }

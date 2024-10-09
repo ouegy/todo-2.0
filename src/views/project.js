@@ -14,7 +14,7 @@ export default function createProjectView(project) {
     const add = View.createElement("button", "+ Add Task", "button");
     const description = View.createElement("div", project.desc, "tasks");
 
-    add.setAttribute("id", "add-task");
+    add.setAttribute("id", "add-task"); // set an id on the button to allow a click event listener
 
     projectButtons.appendChild(edit);
     projectButtons.appendChild(del);

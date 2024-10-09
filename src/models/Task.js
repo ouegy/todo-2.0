@@ -3,6 +3,7 @@ export default class Task {
         this.title = title;
         this.desc = desc;
         this.date = date;
+        this.priority = priority;
         this.completed = false;
     }
 
@@ -16,7 +17,7 @@ export default class Task {
     setPriority(priority) {
         this.priority = priority;
     }
-    getProperty() {
+    getPriority() {
         return this.priority;
     }
 
@@ -26,13 +27,5 @@ export default class Task {
 
     getCompleted() {
         return this.completed;
-    }
-
-    checked() {
-        this.completed = true;
-    }
-
-    unchecked() {
-        this.completed = false;
     }
 }
