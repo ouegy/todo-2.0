@@ -44,6 +44,7 @@ export default class View {
         formContainer.appendChild(createForm(type));
         formContainer.setAttribute("class", "fade-in box-shadow");
     }
+    static populateForm() {}
     static removeForm() {
         const parent = document.getElementById("main");
         parent.classList.remove("fade-in");
@@ -198,4 +199,10 @@ View.addGlobalEventListener("click", "button.delete", (e) => {
             renderTasks(project);
         }
     });
+});
+View.addGlobalEventListener("click", "button.edit-task", (e) => {
+    View.renderForm("task");
+});
+View.addGlobalEventListener("click", "button.edit-project", (e) => {
+    View.renderForm("project");
 });

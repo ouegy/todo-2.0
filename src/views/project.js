@@ -6,8 +6,8 @@ export default function createProjectView(project) {
     const projectHeader = View.createElement("div", "", "project-header");
     const projectTitle = View.createHeader(project.title, "project");
     const projectButtons = View.createElement("div", "", "project-buttons");
-    const edit = View.createElement("button", "");
-    const del = View.createElement("button", "");
+    const edit = View.createElement("button", "", "edit-project");
+    const del = View.createElement("button", "", "delete-project");
     const add = View.createElement("button", "+ Add Task", "button");
     const description = View.createElement("div", project.desc, "tasks");
 

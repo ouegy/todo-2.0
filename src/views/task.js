@@ -17,14 +17,11 @@ function sortTasks(tasks) {
 
 export function renderTasks(project) {
     let tasks = Controller.getProjectTasks(project);
-    console.table(tasks);
-    console.table(tasks);
-    sortTasks(tasks);
-    console.table(tasks);
     const projectDescription = document.querySelector(".tasks");
     projectDescription.replaceChildren();
 
     if (tasks) {
+        sortTasks(tasks);
         tasks.forEach((task) => {
             let priority = task.priority;
             let cardColour = View.setCardColour(priority);
@@ -53,8 +50,8 @@ export function renderTasks(project) {
             const header = View.createElement("div", "", "task-header");
             const title = View.createElement("h3", task.title);
             const formButtons = View.createElement("div", "", "task-buttons");
-            const edit = View.createElement("button", "", "edit");
-            const del = View.createElement("button", "", "delete");
+            const edit = View.createElement("button", "", "edit-task");
+            const del = View.createElement("button", "", "delete-task");
 
             const p = View.createElement("p", task.desc, "description");
 

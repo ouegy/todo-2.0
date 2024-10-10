@@ -1,5 +1,7 @@
 # The Odin Project JavaScript
 
+![To Do Home](./src/img/ToDo.png);
+
 ## Project: Todo List
 
 A dynamically created _ToDo_ list with **vanilla JavaScript**.
