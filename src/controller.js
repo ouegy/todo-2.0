@@ -81,19 +81,7 @@ export default class Controller {
     static getFormData() {
         return View.getFormData();
     }
-    // static deleteProject() {
-
-    //     function deleteBook(array) {
-    //         const del = Array.from(document.getElementsByClassName('delete'));
-    //         del.forEach(button => {
-    //             button.addEventListener('click', () => {
-    //                 const index = button.getAttribute('data-attribute');
-    //                 array.splice(index, 1);
-    //                 const element = document.querySelector(`div[data-attribute='${index}']`);
-    //                 element.remove();
-    //             });
-    //         });
-
-    //     }
-    // }
+    static deleteTask(tasks, index) {
+        tasks.splice(index, 1);
+    }
 }

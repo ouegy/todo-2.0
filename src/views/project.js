@@ -1,11 +1,8 @@
 import View from "./view";
 
 export default function createProjectView(project) {
-    const projectsContainer = View.createElement(
-        "div",
-        "",
-        "project-container"
-    );
+    const projectsContainer = document.createElement("div");
+    projectsContainer.setAttribute("class", "project-container");
     const projectHeader = View.createElement("div", "", "project-header");
     const projectTitle = View.createHeader(project.title, "project");
     const projectButtons = View.createElement("div", "", "project-buttons");

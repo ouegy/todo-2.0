@@ -372,8 +372,7 @@
     font-size: 1rem;
     padding: 1.3rem;
     border-radius: 10px;
-    border-left: 6px solid;
-    border-color: var(--grey);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
    }
 
    /* Task cards styles */

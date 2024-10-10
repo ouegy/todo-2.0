@@ -136,17 +136,22 @@ export default class View {
 }
 
 // User interactions
-
 View.addGlobalEventListener("click", ".check", (e) => {
-    const title = e.target.dataset.title;
     const project = controller.getCurrentProject();
     const tasks = project.tasks;
     tasks.forEach((task) => {
         if (task.title == e.target.dataset.title) {
-            controller.toggleComplete(task);
+            if (task.completed == false) {
+                setTimeout(() => {
+                    controller.toggleComplete(task);
+                    renderTasks(project);
+                }, 250);
+            } else if (task.completed == true) {
+                controller.toggleComplete(task);
+                renderTasks(project);
+            }
         }
     });
-    renderTasks(project);
 });
 
 View.addGlobalEventListener("click", "#add-project", (e) => {
@@ -174,5 +179,20 @@ View.addGlobalEventListener("click", "a.project", (e) => {
         if (e.target.textContent == "Home") View.renderProjectView(projects[0]);
         if (project.title == e.target.textContent)
             View.renderProjectView(project);
+    });
+});
+View.addGlobalEventListener("click", "button.delete", (e) => {
+    e.preventDefault();
+    const project = controller.getCurrentProject();
+    const tasks = project.tasks;
+    tasks.forEach((task) => {
+        let index = tasks.indexOf(task);
+        if (
+            task.title ==
+            e.target.closest("div.task-header").querySelector("h3").textContent
+        ) {
+            Controller.deleteTask(tasks, index);
+            renderTasks(project);
+        }
     });
 });
