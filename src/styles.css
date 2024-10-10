@@ -37,22 +37,10 @@
   :root {
     --red: #FF4242;
     --lime: #D4EE5E;
-    --grey: #EFF2EB;
+    --grey: #cdd2d8;
     --olive: #E0EDB9;
     --pale-green: #F4FAD2;
     --orange: #FACC14;
-  }
-
-  /* colour accents for the project/task priority */
-
-  .red {
-    background: var(--red);
-  }
-  .orange {
-    background: var(--orange);
-  }
-  .green {
-    background: var(--lime);
   }
 
   /* Font styles */
@@ -313,26 +301,6 @@
     width:80%;
     margin-bottom: 1rem;
   }
-/*   
-  .announcement-container {
-    background-color: #fff;
-    border-radius: 10px;
-    padding:40px;
-  }
-   .announcement-container p {
-    font-size: 0.8rem;
-    margin-bottom: 1.3rem;
-    padding-bottom: 1.3rem;
-    border-bottom: 1px solid #000;
-   }
-   .announcement-container p:last-child {
-    border: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-   }
-   .announcements h2:not(:first-child) {
-    margin-top:38px;
-   } */
   
    /* Projects styles */
    .projects-container{
@@ -405,7 +373,7 @@
     padding: 1.3rem;
     border-radius: 10px;
     border-left: 6px solid;
-    border-color: var(--lime);
+    border-color: var(--grey);
    }
 
    /* Task cards styles */
@@ -427,25 +395,30 @@
    .tasks .card:nth-child(4):hover {
     box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
    }
+     /* colour accents for the project/task priority */
 
-   .tasks .card {
+  .red {
     border-left: 4px solid;
-   }
-   .tasks .card:nth-child(1) {
     border-color: var(--red);
-   }
-   .tasks .card:nth-child(2) {
+  }
+  .orange {
+    border-left: 4px solid;
     border-color: var(--orange);
-   }
-   .tasks .card:nth-child(3) {
+  }
+  .green {
+    border-left: 4px solid;
     border-color: var(--lime);
-   }
+  }
+  .grey {
+    border-left: 4px solid;
+    border-color: var(--grey);
+  }
    .strikethrough {
     text-decoration: line-through;
     color: #999;
    }
    .grey {
-    opacity: 0.4;
+    opacity: 0.6;
    }
  
 
@@ -485,7 +458,6 @@
      opacity: 1;
    }
 
- 
    .drop-shadow {
     -webkit-box-shadow: 0 4px 6px -6px #474646;
     -moz-box-shadow: 0 4px 6px -6px #222;

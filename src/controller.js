@@ -17,28 +17,28 @@ export default class Controller {
                         title: "High Priority Task: Create your first project",
                         desc: "The button on the bottom left will always be available for this.",
                         date: "2024-10-25",
-                        priority: "high",
+                        priority: "High",
                         completed: false,
                     },
                     {
                         title: "Medium Priority Task: Create some tasks to go with your new project",
                         desc: "Projects are displayed in the sidebar. Try clicking on the project you just created.",
                         date: "2024-10-25",
-                        priority: "high",
+                        priority: "Medium",
                         completed: false,
                     },
                     {
                         title: "Low Priority Task: Make a cup of coffee and procrastinate on the other tasks.",
                         desc: "",
                         date: "2024-10-25",
-                        priority: "med",
+                        priority: "Low",
                         completed: false,
                     },
                     {
                         title: "Completed Task: ",
                         desc: "Visit Github",
                         date: "2024-10-25",
-                        priority: "low",
+                        priority: "Low",
                         completed: true,
                     },
                 ],
@@ -72,8 +72,8 @@ export default class Controller {
     addProject(a) {
         this.projects.push(new Project(a.title, a.desc, a.date));
     }
-    addTask(title, desc, date, project) {
-        project["tasks"].push(new Task(title, desc, date));
+    addTask(title, desc, date, priority, project) {
+        project["tasks"].push(new Task(title, desc, date, priority));
     }
     toggleComplete(task) {
         return (task.completed = task.completed ? false : true);
@@ -81,4 +81,19 @@ export default class Controller {
     static getFormData() {
         return View.getFormData();
     }
+    // static deleteProject() {
+
+    //     function deleteBook(array) {
+    //         const del = Array.from(document.getElementsByClassName('delete'));
+    //         del.forEach(button => {
+    //             button.addEventListener('click', () => {
+    //                 const index = button.getAttribute('data-attribute');
+    //                 array.splice(index, 1);
+    //                 const element = document.querySelector(`div[data-attribute='${index}']`);
+    //                 element.remove();
+    //             });
+    //         });
+
+    //     }
+    // }
 }

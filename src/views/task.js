@@ -17,6 +17,10 @@ export default function renderTasks(project) {
 
     if (tasks) {
         tasks.forEach((task) => {
+            let priority = task.priority;
+            console.log(priority);
+            let cardColour = View.setCardColour(priority);
+            console.log(cardColour);
             let index = tasks.indexOf(task);
             const checkboxWrapper = View.createElement(
                 "div",
@@ -48,10 +52,10 @@ export default function renderTasks(project) {
             const p = View.createElement("p", task.desc, "description");
 
             if (isComplete == false) {
-                container.setAttribute("class", "card");
+                container.setAttribute("class", "card " + cardColour);
                 checkbox.checked = false;
             } else if (isComplete == true) {
-                container.setAttribute("class", "card grey");
+                container.setAttribute("class", "card grey strikethrough");
                 checkbox.checked = true;
             }
 

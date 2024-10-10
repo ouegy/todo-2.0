@@ -14,9 +14,11 @@ export default class Task {
     getTitle() {
         return this.title;
     }
+
     setPriority(priority) {
         this.priority = priority;
     }
+
     getPriority() {
         return this.priority;
     }

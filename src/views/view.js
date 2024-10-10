@@ -48,7 +48,6 @@ export default class View {
         const child = document.getElementById("form-container");
         if (child) parent.removeChild(child);
     }
-    //static sidebarCb() {}
     static renderSidebarProjects() {
         const sidebarList = document.getElementById("projects");
         sidebarList.replaceChildren();
@@ -82,11 +81,57 @@ export default class View {
         projectsContainer.appendChild(createProjectView(project));
         renderTasks(project);
     }
+    static setCardColour(priority) {
+        let colour = "";
+        switch (priority) {
+            case "Low":
+                colour = "green";
+                break;
+            case "Medium":
+                colour = "orange";
+                break;
+            case "High":
+                colour = "red";
+                break;
+
+            default:
+                colour = "grey";
+                break;
+        }
+        return colour;
+    }
     static getFormData() {
         let title = document.getElementById("title").value;
         let desc = document.getElementById("description").value;
         let date = document.getElementById("date").value;
-        return { title, desc, date };
+        let priority = document.getElementById("priority").value;
+        return { title, desc, date, priority };
+    }
+    static submitForm(e) {
+        const projectTtile = document.querySelector("h1.title").textContent;
+        const projects = View.getProjects();
+        e.preventDefault();
+        const formType = e.target.dataset.type;
+        const data = View.getFormData();
+        console.table(data);
+        if (formType == "project") {
+            controller.addProject(data);
+            View.renderSidebarProjects();
+        }
+        if (formType == "task") {
+            const clicked = projects.map(function (project) {
+                if (project.title == projectTtile) {
+                    controller.addTask(
+                        data.title,
+                        data.desc,
+                        data.date,
+                        data.priority,
+                        project
+                    );
+                    renderTasks(project);
+                }
+            });
+        }
     }
 }
 
@@ -119,23 +164,7 @@ View.addGlobalEventListener("click", "#close", (e) => {
     View.removeForm();
 });
 View.addGlobalEventListener("click", "#submit", (e) => {
-    const projectTtile = document.querySelector("h1.title").textContent;
-    const projects = View.getProjects();
-    e.preventDefault();
-    const formType = e.target.dataset.type;
-    const data = View.getFormData();
-    if (formType == "project") {
-        controller.addProject(data);
-        View.renderSidebarProjects();
-    }
-    if (formType == "task") {
-        const clicked = projects.map(function (project) {
-            if (project.title == projectTtile) {
-                controller.addTask(data.title, data.desc, data.date, project);
-                renderTasks(project);
-            }
-        });
-    }
+    View.submitForm(e);
 });
 View.addGlobalEventListener("click", "a.project", (e) => {
     e.preventDefault();
