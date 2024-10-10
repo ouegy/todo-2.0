@@ -10,17 +10,24 @@ function createCheckbox() {
  </svg>`;
 }
 
-export default function renderTasks(project) {
-    const tasks = Controller.getProjectTasks(project);
+function sortTasks(tasks) {
+    tasks.sort((a, b) => a.priority - b.priority);
+    return tasks;
+}
+
+export function renderTasks(project) {
+    let tasks = Controller.getProjectTasks(project);
+    console.table(tasks);
+    console.table(tasks);
+    sortTasks(tasks);
+    console.table(tasks);
     const projectDescription = document.querySelector(".tasks");
     projectDescription.replaceChildren();
 
     if (tasks) {
         tasks.forEach((task) => {
             let priority = task.priority;
-            console.log(priority);
             let cardColour = View.setCardColour(priority);
-            console.log(cardColour);
             let index = tasks.indexOf(task);
             const checkboxWrapper = View.createElement(
                 "div",

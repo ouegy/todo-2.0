@@ -38,13 +38,13 @@ export default function createForm(type) {
     const placeholder = View.createElement("option");
     placeholder.textContent = "--Please set priority--";
     const high = View.createElement("option", "Priority");
-    high.setAttribute("value", "High");
+    high.setAttribute("value", "1");
     high.textContent = "High";
     const med = View.createElement("option", "Priority");
-    med.setAttribute("value", "Medium");
+    med.setAttribute("value", "2");
     med.textContent = "Medium";
     const low = View.createElement("option", "Priority");
-    low.setAttribute("value", "Low");
+    low.setAttribute("value", "3");
     low.textContent = "Low";
 
     const submit = View.createElement("button", "Add " + type, "button");

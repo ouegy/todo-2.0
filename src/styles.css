@@ -394,6 +394,11 @@
    .tasks .card:nth-child(4):hover {
     box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
    }
+   .task-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   }
      /* colour accents for the project/task priority */
 
   .red {

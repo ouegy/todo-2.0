@@ -1,8 +1,10 @@
 import createForm from "./form";
 import createProjectView from "./project";
-import renderTasks from "./task";
+import { sortTasks, renderTasks } from "./task";
 import Controller from "../controller";
 const controller = new Controller();
+
+//
 
 export default class View {
     static addGlobalEventListener(type, selector, callback, options) {
@@ -84,13 +86,13 @@ export default class View {
     static setCardColour(priority) {
         let colour = "";
         switch (priority) {
-            case "Low":
+            case "3":
                 colour = "green";
                 break;
-            case "Medium":
+            case "2":
                 colour = "orange";
                 break;
-            case "High":
+            case "1":
                 colour = "red";
                 break;
 
@@ -128,6 +130,7 @@ export default class View {
                         data.priority,
                         project
                     );
+
                     renderTasks(project);
                 }
             });
