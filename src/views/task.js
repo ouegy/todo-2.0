@@ -12,6 +12,7 @@ function createCheckbox() {
 
 function sortTasks(tasks) {
     tasks.sort((a, b) => a.priority - b.priority);
+    tasks.sort((a, b) => a.completed - b.completed);
     return tasks;
 }
 

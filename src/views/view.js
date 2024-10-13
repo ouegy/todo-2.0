@@ -1,6 +1,6 @@
 import createForm from "./form";
 import createProjectView from "./project";
-import { sortTasks, renderTasks } from "./task";
+import { renderTasks } from "./task";
 import Controller from "../controller";
 const controller = new Controller();
 
@@ -148,8 +148,10 @@ View.addGlobalEventListener("click", ".check", (e) => {
             if (task.completed == false) {
                 setTimeout(() => {
                     controller.toggleComplete(task);
-                    renderTasks(project);
                 }, 250);
+                setTimeout(() => {
+                    renderTasks(project);
+                }, 650);
             } else if (task.completed == true) {
                 controller.toggleComplete(task);
                 renderTasks(project);
@@ -186,16 +188,15 @@ View.addGlobalEventListener("click", "a.project", (e) => {
     });
 });
 View.addGlobalEventListener("click", "button.delete", (e) => {
-    e.preventDefault();
     const project = controller.getCurrentProject();
     const tasks = project.tasks;
     tasks.forEach((task) => {
         let index = tasks.indexOf(task);
         if (
             task.title ==
-            e.target.closest("div.task-header").querySelector("h3").textContent
+            e.target.closest("div.task-header").querySelector("h3").value
         ) {
-            Controller.deleteTask(tasks, index);
+            controller.deleteTask(tasks, index);
             renderTasks(project);
         }
     });
