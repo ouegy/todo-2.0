@@ -1,10 +1,8 @@
-import createForm from "./form";
+import { createForm } from "./form";
 import createProjectView from "./project";
 import { renderTasks } from "./task";
 import Controller from "../controller";
 const controller = new Controller();
-
-//
 
 export default class View {
     static addGlobalEventListener(type, selector, callback, options) {
@@ -56,10 +54,10 @@ export default class View {
         sidebarList.replaceChildren();
         const projects = controller.projects;
         projects.forEach((project) => {
-            this.creatSidebarProjects(project, sidebarList);
+            this.createSidebarProjects(project, sidebarList);
         });
     }
-    static creatSidebarProjects(project, sidebarList) {
+    static createSidebarProjects(project, sidebarList) {
         const li = document.createElement("li");
         const a = this.createElement("a", project.title, "project");
         a.setAttribute("href", "#");
@@ -74,6 +72,17 @@ export default class View {
     }
     static getProjects() {
         return controller.projects;
+    }
+    static handleProjectRoute(e) {
+        const projects = View.getProjects();
+        console.table(projects);
+        const clicked = projects.map(function (project) {
+            Controller.setCurrentProject(project);
+            if (e.target.textContent == "Home")
+                View.renderProjectView(projects[0]);
+            if (project.title == e.target.textContent)
+                View.renderProjectView(project);
+        });
     }
     static renderProjectView(project) {
         const content = document.getElementById("main");
@@ -110,54 +119,94 @@ export default class View {
         let priority = document.getElementById("priority").value;
         return { title, desc, date, priority };
     }
+    static deleteTask(e) {
+        const project = controller.getCurrentProject();
+        const tasks = project.tasks;
+        tasks.forEach((task) => {
+            let index = tasks.indexOf(task);
+            if (
+                task.title ==
+                e.target.closest("div.task-header").querySelector("h3")
+                    .textContent
+            ) {
+                Controller.deleteTask(tasks, index);
+                renderTasks(project);
+            }
+        });
+    }
     static submitForm(e) {
-        const projectTtile = document.querySelector("h1.title").textContent;
+        const title = document.querySelector("h1.title").textContent;
         const projects = View.getProjects();
         e.preventDefault();
+        //console.table(projects);
         const formType = e.target.dataset.type;
         const data = View.getFormData();
-        console.table(data);
         if (formType == "project") {
             controller.addProject(data);
             View.renderSidebarProjects();
         }
         if (formType == "task") {
             const clicked = projects.map(function (project) {
-                if (project.title == projectTtile) {
-                    controller.addTask(
-                        data.title,
-                        data.desc,
-                        data.date,
-                        data.priority,
-                        project
-                    );
-
+                if (project.title == title) {
+                    controller.addTask(data, project);
                     renderTasks(project);
                 }
             });
         }
     }
+    static checkValidity(title) {
+        const projects = View.getProjects();
+        console.table(projects);
+        return projects.find((ele) => ele.title === title);
+    }
+
+    static toggleCheckbox(e) {
+        const project = controller.getCurrentProject();
+        const tasks = project.tasks;
+        tasks.forEach((task) => {
+            if (task.title == e.target.dataset.title) {
+                if (task.completed == false) {
+                    setTimeout(() => {
+                        controller.toggleComplete(task);
+                    }, 250);
+                    setTimeout(() => {
+                        renderTasks(project);
+                    }, 650);
+                } else if (task.completed == true) {
+                    controller.toggleComplete(task);
+                    renderTasks(project);
+                }
+            }
+        });
+    }
+    static handleForm(e) {
+        console.log("handle form function");
+        console.log("submnit event listener");
+        const title = document.getElementById("title").value;
+        const validity = View.checkValidity(title);
+        if (validity) {
+            e.preventDefault();
+            console.log("fail stop form");
+            View.showError();
+        } else {
+            View.submitForm(e);
+            console.table(controller.projects);
+        }
+    }
+    static showError() {
+        return console.log("show error function");
+    }
 }
 
 // User interactions
+
+// View.addGlobalEventListener("change", "input#title", (e) => {
+//     const title = e.target.value;
+//     View.checkValidity(title);
+// });
+
 View.addGlobalEventListener("click", ".check", (e) => {
-    const project = controller.getCurrentProject();
-    const tasks = project.tasks;
-    tasks.forEach((task) => {
-        if (task.title == e.target.dataset.title) {
-            if (task.completed == false) {
-                setTimeout(() => {
-                    controller.toggleComplete(task);
-                }, 250);
-                setTimeout(() => {
-                    renderTasks(project);
-                }, 650);
-            } else if (task.completed == true) {
-                controller.toggleComplete(task);
-                renderTasks(project);
-            }
-        }
-    });
+    View.toggleCheckbox(e);
 });
 
 View.addGlobalEventListener("click", "#add-project", (e) => {
@@ -175,31 +224,16 @@ View.addGlobalEventListener("click", "#close", (e) => {
     View.removeForm();
 });
 View.addGlobalEventListener("click", "#submit", (e) => {
-    View.submitForm(e);
+    console.log("submit event");
+    console.log("submit event");
+    View.handleForm(e);
 });
 View.addGlobalEventListener("click", "a.project", (e) => {
     e.preventDefault();
-    const projects = View.getProjects();
-    const clicked = projects.map(function (project) {
-        Controller.setCurrentProject(project);
-        if (e.target.textContent == "Home") View.renderProjectView(projects[0]);
-        if (project.title == e.target.textContent)
-            View.renderProjectView(project);
-    });
+    View.handleProjectRoute(e);
 });
-View.addGlobalEventListener("click", "button.delete", (e) => {
-    const project = controller.getCurrentProject();
-    const tasks = project.tasks;
-    tasks.forEach((task) => {
-        let index = tasks.indexOf(task);
-        if (
-            task.title ==
-            e.target.closest("div.task-header").querySelector("h3").value
-        ) {
-            controller.deleteTask(tasks, index);
-            renderTasks(project);
-        }
-    });
+View.addGlobalEventListener("click", "button.delete-task", (e) => {
+    View.deleteTask(e);
 });
 View.addGlobalEventListener("click", "button.edit-task", (e) => {
     View.renderForm("task");

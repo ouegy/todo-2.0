@@ -73,8 +73,8 @@ export default class Controller {
     addProject(a) {
         this.projects.push(new Project(a.title, a.desc, a.date));
     }
-    addTask(title, desc, date, priority, project) {
-        project["tasks"].push(new Task(title, desc, date, priority));
+    addTask(a, project) {
+        project["tasks"].push(new Task(a.title, a.desc, a.date, a.priority));
     }
     toggleComplete(task) {
         return (task.completed = task.completed ? false : true);

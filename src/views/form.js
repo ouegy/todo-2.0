@@ -2,7 +2,7 @@ import View from "./view";
 
 // this is fine.
 
-export default function createForm(type) {
+export function createForm(type) {
     const formContainer = View.createElement("div", "", "form-container");
     const formHeader = View.createElement("div", "", "form-header");
     const formTitle = View.createElement("h2", "Add " + type);
