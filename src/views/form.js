@@ -14,6 +14,7 @@ export function createForm(type) {
     const buttonContainer = View.createElement("div", "", "button-container");
 
     const title = View.createElement("label", "Title");
+    const error = View.createElement("span", "", "hidden");
     title.setAttribute("for", "title");
     const input = document.createElement("input");
     input.setAttribute("type", "text");
@@ -65,6 +66,7 @@ export function createForm(type) {
 
     left.appendChild(title);
     left.appendChild(input);
+    left.appendChild(error);
     left.appendChild(description);
     left.appendChild(input2);
     left.appendChild(buttonContainer);

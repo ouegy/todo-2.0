@@ -180,17 +180,19 @@ export default class View {
         });
     }
     static handleForm(e) {
-        console.log("handle form function");
-        console.log("submnit event listener");
-        const title = document.getElementById("title").value;
-        const validity = View.checkValidity(title);
+        const title = document.getElementById("title");
+        const titleError = document.querySelector("span");
+        titleError.className = "hidden";
+        const validity = View.checkValidity(title.value);
         if (validity) {
             e.preventDefault();
-            console.log("fail stop form");
-            View.showError();
+            title.setCustomValidity("This project already exists.");
+            title.reportValidity();
+            titleError.textContent = "This project name already exists.";
+            titleError.className = "error active";
         } else {
+            title.setCustomValidity("");
             View.submitForm(e);
-            console.table(controller.projects);
         }
     }
     static showError() {
@@ -200,10 +202,16 @@ export default class View {
 
 // User interactions
 
-// View.addGlobalEventListener("change", "input#title", (e) => {
-//     const title = e.target.value;
-//     View.checkValidity(title);
-// });
+View.addGlobalEventListener("change", "input#title", (e) => {
+    const validity = View.checkValidity(e.target.value);
+    const titleError = document.querySelector("span");
+    if (validity) {
+        titleError.textContent = "This project name already exists.";
+        titleError.className = "error active";
+    } else {
+        View.submitForm(e);
+    }
+});
 
 View.addGlobalEventListener("click", ".check", (e) => {
     View.toggleCheckbox(e);
@@ -224,8 +232,6 @@ View.addGlobalEventListener("click", "#close", (e) => {
     View.removeForm();
 });
 View.addGlobalEventListener("click", "#submit", (e) => {
-    console.log("submit event");
-    console.log("submit event");
     View.handleForm(e);
 });
 View.addGlobalEventListener("click", "a.project", (e) => {

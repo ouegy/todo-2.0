@@ -301,6 +301,28 @@
     width:80%;
     margin-bottom: 1rem;
   }
+  /* This is our style for the invalid fields */
+input:invalid {
+  border-color: #900;
+  background-color: #fdd;
+}
+
+input:focus:invalid {
+  outline: none;
+}
+
+/* This is the style of our error messages */
+.error {
+    padding: 0;
+    font-size: 80%;
+    color: var(--red);
+    box-sizing: border-box;
+    display: block;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+}
+
+
   
    /* Projects styles */
    .projects-container{
