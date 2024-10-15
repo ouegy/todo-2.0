@@ -1,4 +1,8 @@
 import "./styles.css";
-import View from "./views/view";
+import Storage from "./Storage";
+import View from "./views/View";
 
-document.addEventListener("DOMContentLoaded", View.loadHomeView);
+document.addEventListener("DOMContentLoaded", () => {
+    View.loadHomeView();
+    Storage.populateStorage();
+});

@@ -1,7 +1,8 @@
 import { createForm } from "./form";
 import createProjectView from "./project";
 import { renderTasks } from "./task";
-import Controller from "../controller";
+import Controller from "../Controller";
+import Storage from "../Storage";
 const controller = new Controller();
 
 export default class View {
@@ -52,7 +53,7 @@ export default class View {
     static renderSidebarProjects() {
         const sidebarList = document.getElementById("projects");
         sidebarList.replaceChildren();
-        const projects = controller.projects;
+        const projects = Storage.getProjects();
         projects.forEach((project) => {
             this.createSidebarProjects(project, sidebarList);
         });
@@ -84,6 +85,7 @@ export default class View {
                 View.renderProjectView(project);
         });
     }
+
     static renderProjectView(project) {
         const content = document.getElementById("main");
         const projectsContainer = document.createElement("div");
@@ -155,8 +157,8 @@ export default class View {
         }
     }
     static checkValidity(title) {
-        const projects = View.getProjects();
-        console.table(projects);
+        const projects = Storage.getProjects();
+        //console.table(projects);
         return projects.find((ele) => ele.title === title);
     }
 
@@ -187,7 +189,7 @@ export default class View {
         if (validity) {
             e.preventDefault();
             title.setCustomValidity("This project already exists.");
-            title.reportValidity();
+            //title.reportValidity();
             titleError.textContent = "This project name already exists.";
             titleError.className = "error active";
         } else {

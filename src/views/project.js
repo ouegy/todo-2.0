@@ -1,4 +1,4 @@
-import View from "./view";
+import View from "./View";
 
 export default function createProjectView(project) {
     const projectsContainer = document.createElement("div");

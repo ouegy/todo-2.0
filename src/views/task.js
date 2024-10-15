@@ -1,5 +1,5 @@
-import View from "./view";
-import Controller from "../controller";
+import View from "./View";
+import Controller from "../Controller";
 
 function createCheckbox() {
     return `<svg width="45" height="45" viewbox="0 0 95 95">

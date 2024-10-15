@@ -1,6 +1,7 @@
-import View from "./views/view";
+import View from "./views/View";
 import Project from "./models/project";
 import Task from "./models/Task";
+import Storage from "./Storage";
 
 export default class Controller {
     constructor(project, view, task) {
@@ -51,7 +52,7 @@ export default class Controller {
             },
         ];
         this.currentProject = this.projects[0];
-        console.table(this.currentProject);
+        //console.table(this.currentProject);
     }
 
     setProjects(projects) {
@@ -72,6 +73,7 @@ export default class Controller {
     }
     addProject(a) {
         this.projects.push(new Project(a.title, a.desc, a.date));
+        Storage.saveProject(a);
     }
     addTask(a, project) {
         project["tasks"].push(new Task(a.title, a.desc, a.date, a.priority));
