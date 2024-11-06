@@ -7,7 +7,7 @@
 A dynamically created _ToDo_ list with **vanilla JavaScript**.
 The project is from The Odin Project [curriculum](https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript/lessons/todo-list).
 
-🔗 **Live preview** of the project is
+🔗 **Live preview** of the project is [a link](https://ouegy.github.io/todo-2.0/)
 
 ### Overview
 

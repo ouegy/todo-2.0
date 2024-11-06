@@ -71,9 +71,9 @@ export default class View {
         View.renderSidebarProjects();
         View.renderProjectView(projects[0]);
     }
-    // static getProjects() {
-    //     return controller.projects;
-    // }
+    static getProjects() {
+        return controller.projects;
+    }
     static handleProjectRoute(e) {
         const projects = Storage.getProjects();
         console.table(projects);
