@@ -1,6 +1,6 @@
 # The Odin Project JavaScript
 
-![To Do Home](./src/img/ToDo.png);
+![To Do Home](./src/img/ToDo.png)
 
 ## Project: Todo List
 

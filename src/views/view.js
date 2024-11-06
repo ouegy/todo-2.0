@@ -67,15 +67,15 @@ export default class View {
     }
 
     static loadHomeView() {
-        const projects = View.getProjects();
+        const projects = Storage.getProjects();
         View.renderSidebarProjects();
         View.renderProjectView(projects[0]);
     }
-    static getProjects() {
-        return controller.projects;
-    }
+    // static getProjects() {
+    //     return controller.projects;
+    // }
     static handleProjectRoute(e) {
-        const projects = View.getProjects();
+        const projects = Storage.getProjects();
         console.table(projects);
         const clicked = projects.map(function (project) {
             Controller.setCurrentProject(project);
@@ -138,7 +138,7 @@ export default class View {
     }
     static submitForm(e) {
         const title = document.querySelector("h1.title").textContent;
-        const projects = View.getProjects();
+        const projects = Storage.getProjects();
         e.preventDefault();
         //console.table(projects);
         const formType = e.target.dataset.type;

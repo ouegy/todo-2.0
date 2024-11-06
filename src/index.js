@@ -1,3 +1,5 @@
+"use strict";
+
 import "./styles.css";
 import Storage from "./Storage";
 import View from "./views/View";
