@@ -223,6 +223,15 @@ View.addGlobalEventListener("click", "#add-project", (e) => {
     e.preventDefault();
     View.removeForm();
     View.renderForm("project");
+
+    // Close sidebar on mobile when Add Project is clicked
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+        const sidebar = document.getElementById("sidebar");
+        const hamburger = document.getElementById("hamburger");
+        sidebar.classList.remove("active");
+        hamburger.classList.remove("active");
+    }
 });
 View.addGlobalEventListener("click", "#add-task", (e) => {
     e.preventDefault();
@@ -248,4 +257,35 @@ View.addGlobalEventListener("click", "button.edit-task", (e) => {
 });
 View.addGlobalEventListener("click", "button.edit-project", (e) => {
     View.renderForm("project");
+});
+
+// Hamburger menu toggle
+document.addEventListener("click", (e) => {
+    const hamburger = document.getElementById("hamburger");
+    const sidebar = document.getElementById("sidebar");
+    const isMobile = window.innerWidth <= 768;
+
+    // Toggle when hamburger is clicked
+    if (e.target.closest("#hamburger")) {
+        e.stopPropagation();
+        sidebar.classList.toggle("active");
+        hamburger.classList.toggle("active");
+        return;
+    }
+
+    // Close sidebar when clicking outside on mobile
+    if (isMobile &&
+        sidebar.classList.contains("active") &&
+        !sidebar.contains(e.target)) {
+        sidebar.classList.remove("active");
+        hamburger.classList.remove("active");
+    }
+
+    // Close sidebar when a project link is clicked on mobile
+    if (isMobile && e.target.matches("a.project")) {
+        setTimeout(() => {
+            sidebar.classList.remove("active");
+            hamburger.classList.remove("active");
+        }, 200);
+    }
 });
