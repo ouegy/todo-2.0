@@ -231,13 +231,8 @@ View.addGlobalEventListener("click", "#add-project", (e) => {
         const hamburger = document.getElementById("hamburger");
         sidebar.classList.remove("active");
         hamburger.classList.remove("active");
+        document.body.classList.remove("no-scroll");
     }
-});
-
-View.addGlobalEventListener("click", "#add-project-mobile", (e) => {
-    e.preventDefault();
-    View.removeForm();
-    View.renderForm("project");
 });
 View.addGlobalEventListener("click", "#add-task", (e) => {
     e.preventDefault();

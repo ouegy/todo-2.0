@@ -125,18 +125,6 @@
     transform: translateY(-50%);
   }
 
-  /* Mobile Add Project button in header */
-  .add-project-mobile {
-    display: none;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 300;
-    white-space: nowrap;
-  }
 
   .hamburger span {
     width: 30px;
@@ -736,10 +724,14 @@ input:focus:invalid {
     }
 
     #add-project {
-      display: none;
+      position: fixed;
+      bottom: 1rem;
+      left: 1rem;
+      width: calc(280px - 2rem);
+      margin-top: 0;
     }
 
-    .add-project-mobile {
+    .sidebar.active #add-project {
       display: block;
     }
 
