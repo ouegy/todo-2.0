@@ -233,6 +233,12 @@ View.addGlobalEventListener("click", "#add-project", (e) => {
         hamburger.classList.remove("active");
     }
 });
+
+View.addGlobalEventListener("click", "#add-project-mobile", (e) => {
+    e.preventDefault();
+    View.removeForm();
+    View.renderForm("project");
+});
 View.addGlobalEventListener("click", "#add-task", (e) => {
     e.preventDefault();
     View.removeForm();
@@ -270,6 +276,13 @@ document.addEventListener("click", (e) => {
         e.stopPropagation();
         sidebar.classList.toggle("active");
         hamburger.classList.toggle("active");
+
+        // Toggle body scroll
+        if (sidebar.classList.contains("active")) {
+            document.body.classList.add("no-scroll");
+        } else {
+            document.body.classList.remove("no-scroll");
+        }
         return;
     }
 
@@ -279,6 +292,7 @@ document.addEventListener("click", (e) => {
         !sidebar.contains(e.target)) {
         sidebar.classList.remove("active");
         hamburger.classList.remove("active");
+        document.body.classList.remove("no-scroll");
     }
 
     // Close sidebar when a project link is clicked on mobile
@@ -286,6 +300,7 @@ document.addEventListener("click", (e) => {
         setTimeout(() => {
             sidebar.classList.remove("active");
             hamburger.classList.remove("active");
+            document.body.classList.remove("no-scroll");
         }, 200);
     }
 });

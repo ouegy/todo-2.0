@@ -32,6 +32,12 @@
     font-family: "Roboto", sans-serif;
     color: #363636;
   }
+
+  body.no-scroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
   /* Colour variables */
 
   :root {
@@ -119,27 +125,38 @@
     transform: translateY(-50%);
   }
 
+  /* Mobile Add Project button in header */
+  .add-project-mobile {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 300;
+    white-space: nowrap;
+  }
+
   .hamburger span {
     width: 30px;
     height: 3px;
     background: #363636;
     border-radius: 10px;
-    transition: all 0.3s linear;
-    position: relative;
-    transform-origin: 1px;
+    transition: all 0.3s ease;
+    display: block;
   }
 
   .hamburger.active span:nth-child(1) {
-    transform: rotate(45deg);
+    transform: rotate(45deg) translate(6px, 6px);
   }
 
   .hamburger.active span:nth-child(2) {
     opacity: 0;
-    transform: translateX(20px);
   }
 
   .hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg);
+    transform: rotate(-45deg) translate(6px, -6px);
   }
 
   .user-details {
@@ -720,6 +737,10 @@ input:focus:invalid {
 
     #add-project {
       display: none;
+    }
+
+    .add-project-mobile {
+      display: block;
     }
 
     .projects-container {
